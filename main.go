@@ -16,23 +16,22 @@ func main() {
 	}
 
 	if config.ServiceAccountPath == "" {
-		log.Print("Please add env variable for QS_GO_SA_JSON as path to service account.json")
+		fmt.Println("Please add env variable for QS_GO_SA_JSON as path to service account.json")
 	}
 	if config.APIKey == "" {
-		log.Print("Please add env variable for QS_GO_API_KEY as api key of firebase project, find in Project settings in your firebase console")
+		fmt.Println("Please add env variable for QS_GO_API_KEY as api key of firebase project, find in Project settings in your firebase console")
 	}
 
 	client, err := auth.NewClient(config)
 	if err != nil {
-		log.Fatalf("Failed to create client: %v", err)
+		fmt.Printf("Failed to create client: %v \n", err)
 	}
-
 
 	userId := os.Getenv("QGID")
 	if userId == "" {
-		log.Print("empty user id recieved, overriding with sheltons dev uid ")
+		fmt.Println("empty user id recieved, overriding with sheltons dev uid ")
+		userId = "R4s7qc4JYgOYXAEX5B1Vua6mAko1"
 	}
-	userId = "R4s7qc4JYgOYXAEX5B1Vua6mAko1"
 
 	token, err := client.GenerateIDToken(context.Background(), userId)
 	if err != nil {
